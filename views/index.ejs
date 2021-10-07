@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Language choice</title>
+</head>
+<body>
+<form id="choose" method="get">
+    <h2>Choose the language</h2>
+    <p>
+        <label>
+            <input type="radio" value="1" checked name="langID"/>PL
+        </label>
+    </p>
+    <p>
+        <label>
+            <input type="radio" value="2" name="langID"/>RU
+        </label>
+    </p>
+    <p>
+        <label>
+            <input type="radio" value="3" name="langID"/>BY
+        </label>
+    </p>
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+    <p>
+        <%= qs.langID%>
+    </p>
+</form>
+</body>
+</html>
