@@ -24,9 +24,14 @@
     <p>
         <button type="submit">Submit</button>
     </p>
-    <p>
-        <%= qs.langID%>
-    </p>
 </form>
+
+<div >
+    <%if (qs){ %>
+        <% qs.forEach(function(row){ %>
+            <p><%= row.name%></p>
+    <% })} %>
+</div>
+
 </body>
 </html>

@@ -12,20 +12,18 @@ const start = async ()=>{
         app.set("view engine", "ejs");
 
         app.get('/', (req, res)=>{
-            res.render('index', {qs: req.query});
 
             var sql = `
-                SELECT COALESCE(l.name, b.name) AS Book name
+                SELECT COALESCE(l.name, b.name) AS name
                 FROM books b
                 LEFT JOIN localization l
-                ON b.book_id=l.book_id AND l.lang_id = ${argFromQueryString}`
+                ON b.book_id=l.book_id AND l.lang_id = ${req.query.langID};`
 
             client.query(sql, (err, result)=>{
-                if (!err){
-                    console.log(result.rows);
-                    // res.send(result.rows);
+                if (!err && result){
+                    res.render('index', {qs: result.rows});
                 }else {
-                    console.log(err.message);
+                    res.render('index', {qs: null});
                 }
                 client.end;
             });
