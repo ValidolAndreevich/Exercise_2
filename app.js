@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const port = 3000;
+const reg = new RegExp('^[0-9]+$');
 
 const start = async ()=>{
     try {
@@ -12,12 +13,17 @@ const start = async ()=>{
         app.set("view engine", "ejs");
 
         app.get('/', (req, res)=>{
+            let argFromPage = req.query.langID;
+
+            if (!reg.test(argFromPage)){
+                argFromPage = "";
+            }
 
             var sql = `
                 SELECT COALESCE(l.name, b.name) AS name
                 FROM books b
                 LEFT JOIN localization l
-                ON b.book_id=l.book_id AND l.lang_id = ${req.query.langID};`
+                ON b.book_id=l.book_id AND l.lang_id = ${argFromPage};`
 
             client.query(sql, (err, result)=>{
                 if (!err && result){
